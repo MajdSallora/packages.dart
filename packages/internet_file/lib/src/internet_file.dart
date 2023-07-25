@@ -19,6 +19,7 @@ class InternetFile {
     @Deprecated('Usage `progress` instead') InternetFileProcess? process,
     InternetFileProgress? progress,
     InternetFileStorage? storage,
+    Duration? timeOut,
     InternetFileStorageAdditional storageAdditional = const {},
     bool force = false,
     String method = 'GET',
@@ -30,7 +31,7 @@ class InternetFile {
     if (headers != null) {
       request.headers.addAll(headers);
     }
-    final response = httpClient.send(request);
+    final response = httpClient.send(request).timeout(timeOut ?? Duration(seconds: 30));
 
     List<int> bytesList = [];
     int receivedLength = 0;
